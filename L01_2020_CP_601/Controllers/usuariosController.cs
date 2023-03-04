@@ -37,23 +37,8 @@ namespace L01_2020_CP_601.Controllers
         public IActionResult FindByNombre(string filtro)
         {
             usuarios? usuarios = (from e in _blogContexto.usuarios
-                               where e.nombre.Contains(filtro)
-                               select e).FirstOrDefault();
-
-            if (usuarios == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(usuarios);
-        }
-        
-        [HttpGet]
-        [Route("FindByApellido/{filtro}")]
-        public IActionResult FindByApellido(string filtro)
-        {
-            usuarios? usuarios = (from e in _blogContexto.usuarios
-                                  where e.apellido.Contains(filtro)
+                                  where e.nombre.Contains(filtro) ||
+                                   e.apellido.Contains(filtro)
                                   select e).FirstOrDefault();
 
             if (usuarios == null)
@@ -63,6 +48,7 @@ namespace L01_2020_CP_601.Controllers
 
             return Ok(usuarios);
         }
+
 
         [HttpGet]
         [Route("FindByRol/{idRol}")]
